@@ -13,3 +13,8 @@ pip install -r requirements.txt
 ## Helpful Tips
 The Key for the caser cipher on the samples is 2 for MarkA123 and royhull,
 4 for Nolan123, and 1 for turkeySand.
+
+To install or clone the repository use:
+```
+git clone https://github.com/MarkAppprogrammer/PasswordStoarge.git
+```
