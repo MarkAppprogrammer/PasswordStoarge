@@ -20,7 +20,7 @@ print("      |             -              |")
 print("      |                            |")
 print("      ------------------------------")
 
-print("PASSWORD STOARGE")
+print("PASSWORD STORAGE")
 usercorrect = False
 passwordcorrect = False
 users = [[],[]]
