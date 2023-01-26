@@ -7,7 +7,7 @@ added soon.
 ## Requirments
 Use pip to install moudles that I used
 ```
-pip install -r requirments.txt
+pip install -r requirements.txt
 ```
 
 ## Helpful Tips
