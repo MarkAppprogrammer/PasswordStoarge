@@ -5,7 +5,7 @@ Passwords are encrypted using a casear cipher. More feautres will be
 added soon.
 
 ## Requirments
-Use pip to install modulse that I used
+Use pip to install moudles that I used
 ```
 pip install -r requirments.txt
 ```
