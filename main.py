@@ -71,12 +71,28 @@ minute = time.strftime(":%M:", t)
 second = time.strftime("%S", t)
 termcolor.cprint("Logged in at: [" + str(hour) + minute + second + "]", "green")
 
-
-cipherKey = input("[*] KEY: ")
-cipherKey = int(cipherKey)
 letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ'
 passwords = []
 
+def getKey():
+  ciphercorrect = False
+  while ciphercorrect == False:
+    cipherKey = input("[*] KEY: ")
+    cipherKey = int(cipherKey)  
+    if cipherKey < 0 or cipherKey > 5:
+      termcolor.cprint("Key has to be less than 5 and greater then 0", "red")
+    elif cipherKey >= 1 and cipherKey <= 5:
+      f = open("passwords.txt", "r")
+      for line in f:
+        temporary = line.split(":")
+        decoded = decode(temporary[0], cipherKey)
+        if decoded == currentuser:
+          return cipherKey
+      f.close()
+      print("Wrong Key")
+    else:
+      termcolor.cprint("The Key needs to be a number", "red")
+      
 def findlocation(element):
   element = element.upper()
   i=0
@@ -117,16 +133,18 @@ def encode(string, key):
       encoded = encoded + letter
   return encoded
   
+cipherKey = getKey()
 f = open("passwords.txt", "r")
 for line in f:
   temporary = line.split(":")
   decoded = decode(temporary[0], cipherKey)
   if decoded == currentuser:
-    print("Username: " + decoded)
-    temporary[1] = temporary[1].split(", ")
-    for element in temporary[1]:
-      passwords.append(decode(element, cipherKey))
-f.close()
+    encodedpasswords = temporary[1].split(", ")
+    
+    for z in range(0, len(encodedpasswords)):
+      encodedpasswords[z] = encodedpasswords[z].rstrip("\n")
+      password = decode(encodedpasswords[z], cipherKey)
+      passwords.append(password)
 j = 1
 print("Passwords:")
 for password in passwords:
@@ -171,7 +189,6 @@ while loggedIn == True:
       cipherKey = newKey
   elif int(option) == 2:
     count = len(open("passwords.txt").readlines())
-    print(count)
     tempFile = []
     newPassword = input("[*] Enter a new password: ")
     newPassword = encode(newPassword, cipherKey)
@@ -192,8 +209,6 @@ while loggedIn == True:
           tempFile.append("\n")
       s=s+1
     f.close()
-    print(newline)
-    print(tempFile)
     with open("passwords.txt", "w") as file:
       for i in range(len(tempFile)):
         file.write(tempFile[i])
